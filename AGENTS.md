@@ -13,9 +13,13 @@ The main objective of this repository is the migration of the static site "Pined
 
 ## 2. Infrastructure & Architectural Decisions
 - **Framework:** Next.js (App Router), Tailwind CSS v4, TypeScript.
-- **Node.js Environment:** Target cPanel environment supports Node.js 20/22. The GitHub runner uses Node 20 to successfully build Next.js 16.
-- **Standalone Build:** `output: "standalone"` is strictly enforced in `next.config.ts`. This allows the application to run independently of the `node_modules` structure on cPanel via Phusion Passenger.
-- **Image Optimization:** We avoided hotlinking from Google Stitch CDNs. Images were downloaded locally to `public/images/` and optimized natively using the `<Image />` Next.js component.
+- **Hosting Environment (HostGator):** Target cPanel environment **DOES NOT** support Node.js (Phusion Passenger) on the current plan. Because of this, the application has been migrated to a **Static Export** architecture.
+- **Static Build:** `output: "export"` is strictly enforced in `next.config.ts`.
+- **Apache Directory Resolution:** `trailingSlash: true` is required in `next.config.ts`. Without it, navigating to `/about` generates a file `about.html`, but Apache expects a directory or throws a 403/404. With `trailingSlash: true`, Next.js generates `/about/index.html`, which Apache natively understands.
+- **Image Optimization:** 
+  - Since `output: "export"` does not run a Node.js server, Next.js dynamic image optimization (`_next/image`) is unavailable.
+  - To prevent CLS (Cumulative Layout Shift) while maintaining static export compatibility, we use **Static Imports** (`import img from '@/public/images/...'`). Webpack extracts dimensions at build time and generates a `blurDataURL` automatically without requiring the Node server runtime.
+  - We retain `formats: ['image/avif', 'image/webp']` in `next.config.ts` per user request, but it is functionally dormant in purely static exports.
 
 ## 3. The "HostGator / Jailshell" CI/CD Deploy Quirks (Crucial for future agents)
 When setting up `.github/workflows/deploy.yml`, we encountered multiple catastrophic failures due to HostGator's strict shared hosting environment. Future agents **MUST NOT USE** third-party GitHub Actions like `easingthemes/ssh-deploy` or `appleboy/scp-action`. 
@@ -24,13 +28,13 @@ When setting up `.github/workflows/deploy.yml`, we encountered multiple catastro
 1. **The "Too many authentication failures" bug:** HostGator limits SSH attempts strictly. GitHub runners send multiple default public keys. **Fix:** Use `-o IdentitiesOnly=yes` and create a `~/.ssh/config` file to force only the provided secret key.
 2. **The "rsa-sha2-512 rejected" bug:** Modern GitHub runners use SHA-2 signatures, which old cPanel OpenSSH daemons advertise but falsely reject. **Fix:** Force the legacy signature algorithm using `PubkeyAcceptedAlgorithms ssh-rsa` in `~/.ssh/config`.
 3. **The "protocol version mismatch -- is your shell clean?" bug:** HostGator's Jailshell/bashrc outputs MOTD/warnings on login, which completely corrupts the binary stream of `rsync`. **Fix:** Abandon `rsync` entirely. Use **native `scp`** (which uses the SFTP subsystem and ignores shell output).
-4. **The "remote server os type is windows / EOF" bug:** Actions like `appleboy/scp-action` written in Go try to detect the OS by running commands. Jailshell blocks them, the action assumes it's Windows, corrupts the paths, and dies with `EOF`. **Fix:** Use pure bash `scp` and `ssh` commands.
+4. **Deploy Target:** We deploy the `out/` folder directly to `public_html/`.
 
 ## 4. Git / WSL Restrictions
 There is a known issue where running Git commands from Windows targeting a WSL repository path (`\\wsl.localhost\Ubuntu-20.04\...`) can cause "dubious ownership" errors. 
 - Always ensure `git config --global --add safe.directory` is applied if ownership errors occur.
-- For push authentication, running Git from the Windows host (PowerShell) leverages the Git Credential Manager seamlessly.
+- Be careful with `.gitignore`: A root `images/` entry will ignore `public/images/`. Always use `/images/` to anchor exclusions.
 
 ## 5. Next Steps
 - Verify SEO configuration (`sitemap.ts` and `robots.txt` dynamic implementation).
-- Monitor production performance in HostGator (Passenger app reloading logic).
+- Consider integrating Cloudflare for edge caching and dynamic image optimization since HostGator cannot process images on the fly.

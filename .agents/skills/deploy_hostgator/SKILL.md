@@ -6,21 +6,18 @@ Tu objetivo como agente (@devops / @architect) es configurar un pipeline de CI/C
 ## CONTEXTO Y MEJORES PRÁCTICAS (BEST PRACTICES)
 Debes adherirte estrictamente a las siguientes prácticas arquitectónicas para evitar fallos de recursos y asegurar un despliegue sin tiempo de inactividad (Zero-Downtime):
 
-1. **Construcción Externa (Off-Server Build):** Los servidores compartidos de HostGator tienen límites estrictos de CPU y memoria (RAM) que causan errores de "Recurso temporalmente no disponible" o matan el proceso al intentar ejecutar `npm run build`. **Toda la construcción debe realizarse en el runner de GitHub Actions**.
-2. **Modo Standalone:** Asegúrate de que el archivo `next.config.js` de la aplicación tenga configurado `output: 'standalone'`. Esto crea un servidor Node.js mínimo y rastrea dependencias, ideal para integrarse con Phusion Passenger en el cPanel de HostGator.
-3. **Preparación de Artefactos:** La carpeta `.next/standalone` no incluye por defecto los archivos estáticos. **Debes agregar un paso en el pipeline para copiar las carpetas `public` y `.next/static` dentro de `.next/standalone`** antes de transferir los archivos.
-4. **Despliegue vía SCP Nativo:** ¡PROHIBIDO usar acciones como `easingthemes/ssh-deploy` o `appleboy/scp-action`! El Jailshell de HostGator causa bugs severos: interrumpe el flujo binario de `rsync` ("protocol mismatch") debido a mensajes interactivos ocultos en `.bashrc`, y confunde la detección de OS a las acciones escritas en Go (asumiendo que es Windows). **Se debe usar siempre comandos bash nativos (`scp -r` puro)**.
-5. **Configuración SSH Estricta para cPanel:** OpenSSH ha deshabilitado el uso de claves RSA antiguas (SHA-1) por defecto, pero HostGator aún suele requerirlas en sus conexiones. Por lo tanto, debes forzar el algoritmo legacy mediante el archivo `~/.ssh/config` (`PubkeyAcceptedAlgorithms ssh-rsa`) para evitar el error silencioso de firma rechazada ("Too many authentication failures").
-6. **Reinicio Graceful con Phusion Passenger:** En HostGator, las aplicaciones Node.js son administradas por Phusion Passenger. Para aplicar los cambios sin tirar el servidor, debes ejecutar el comando nativo `ssh` para crear el archivo `tmp/restart.txt` (`mkdir -p tmp && touch tmp/restart.txt`). Passenger lo detectará y reiniciará Node.js automáticamente.
+1. **Construcción Externa (Off-Server Build):** Los servidores compartidos de HostGator tienen límites estrictos de CPU y memoria. **Toda la construcción debe realizarse en el runner de GitHub Actions**.
+2. **Modo Static Export:** Debido a que el plan de HostGator no soporta Node.js (Phusion Passenger), asegúrate de que el archivo `next.config.ts` tenga configurado `output: 'export'` y `trailingSlash: true`. Esto crea archivos HTML estáticos en la carpeta `out/`.
+3. **Despliegue vía SCP Nativo:** ¡PROHIBIDO usar acciones como `easingthemes/ssh-deploy` o `appleboy/scp-action`! El Jailshell de HostGator causa bugs severos: interrumpe el flujo binario de `rsync` ("protocol mismatch") debido a mensajes interactivos ocultos en `.bashrc`, y confunde la detección de OS a las acciones escritas en Go (asumiendo que es Windows). **Se debe usar siempre comandos bash nativos (`scp -r` puro)**.
+4. **Configuración SSH Estricta para cPanel:** OpenSSH ha deshabilitado el uso de claves RSA antiguas (SHA-1) por defecto, pero HostGator aún suele requerirlas en sus conexiones. Por lo tanto, debes forzar el algoritmo legacy mediante el archivo `~/.ssh/config` (`PubkeyAcceptedAlgorithms ssh-rsa`) para evitar el error silencioso de firma rechazada ("Too many authentication failures").
 
 ## INSTRUCCIONES DE EJECUCIÓN PARA EL AGENTE
 
-### Paso 1: Verificación de next.config.js y entry point
-- Verifica o modifica el archivo `next.config.js` para asegurar que `output: "standalone"` esté presente.
-- Si es necesario, asegúrate de que existe un `server.js` en la raíz (generado por Next.js en la carpeta standalone) que actuará como punto de entrada para Phusion Passenger.
+### Paso 1: Verificación de next.config.ts
+- Verifica que `output: "export"` y `trailingSlash: true` estén configurados.
 
 ### Paso 2: Creación del Workflow de GitHub Actions
-Crea el archivo `.github/workflows/deploy.yml` con la siguiente estructura exacta:
+El archivo `.github/workflows/deploy.yml` debe tener esta estructura para transferir la carpeta `out/` a `public_html/`:
 
 ```yaml
 name: Deploy Next.js to HostGator
@@ -42,19 +39,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Requerido para Next.js >= 15. Cambiar a 20 o 22 en cPanel.
+          node-version: '20'
           cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
 
-      - name: Build Next.js App
+      - name: Build Next.js App (Static Export)
         run: npm run build
-
-      - name: Prepare Standalone Directory
-        run: |
-          cp -r public .next/standalone/
-          cp -r .next/static .next/standalone/.next/
 
       - name: Setup SSH
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -80,12 +72,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           shopt -s dotglob
-          scp -r -P 2222 .next/standalone/* ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }}:${{ secrets.HOSTGATOR_TARGET_PATH }}/
-
-      - name: Restart Passenger App (Zero-Downtime)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          ssh -p 2222 ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }} "mkdir -p ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp && touch ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp/restart.txt"
+          scp -r -P 2222 out/* ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }}:${{ secrets.HOSTGATOR_TARGET_PATH }}/
 ```
 
 ### Paso 3: Instrucciones Finales para el Usuario
