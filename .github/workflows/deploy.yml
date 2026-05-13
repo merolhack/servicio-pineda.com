@@ -45,7 +45,8 @@ jobs:
             StrictHostKeyChecking no
             IdentitiesOnly yes
             IdentityFile ~/.ssh/id_rsa
-            PubkeyAcceptedKeyTypes +ssh-rsa
+            PubkeyAcceptedAlgorithms ssh-rsa
+            PubkeyAcceptedKeyTypes ssh-rsa
             HostKeyAlgorithms +ssh-rsa
             BatchMode yes
           EOF
