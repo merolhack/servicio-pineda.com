@@ -1,0 +1,57 @@
+name: Deploy Next.js to HostGator
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Next.js App
+        run: npm run build
+
+      - name: Prepare Standalone Directory
+        run: |
+          cp -r public .next/standalone/
+          cp -r .next/static .next/standalone/.next/
+
+      - name: Deploy to HostGator via Rsync
+        uses: easingthemes/ssh-deploy@v2
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.HOSTGATOR_REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.HOSTGATOR_REMOTE_USER }}
+          REMOTE_PORT: 2222
+          TARGET: ${{ secrets.HOSTGATOR_TARGET_PATH }}
+          SOURCE: ".next/standalone/"
+          ARGS: "-rltgoDzvO --delete"
+
+      - name: Restart Passenger App (Zero-Downtime)
+        uses: appleboy/ssh-action@master
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        with:
+          host: ${{ secrets.HOSTGATOR_REMOTE_HOST }}
+          username: ${{ secrets.HOSTGATOR_REMOTE_USER }}
+          key: ${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}
+          port: 2222
+          script: |
+            cd ${{ secrets.HOSTGATOR_TARGET_PATH }}
+            mkdir -p tmp
+            touch tmp/restart.txt
