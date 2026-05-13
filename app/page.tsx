@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import heroImg from "@/public/images/pineda-sistema-elevacion-industrial.jpeg";
+import featureImg from "@/public/images/pineda-compresora-industrial-itsa.jpeg";
 
 export default function Home() {
   return (
@@ -7,11 +9,12 @@ export default function Home() {
       <section className="relative h-[80vh] min-h-[600px] w-full overflow-hidden flex items-center">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/image-5.jpg"
+            src={heroImg}
             alt="Hydraulic pistons and machinery"
             fill
             className="object-cover grayscale-[20%]"
             priority
+            placeholder="blur"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/70 to-transparent"></div>
         </div>
@@ -113,10 +116,11 @@ export default function Home() {
         <div className="max-w-[1280px] mx-auto px-lg grid grid-cols-1 lg:grid-cols-2 gap-xxl items-center">
           <div className="relative h-96 lg:h-full min-h-[400px]">
             <Image
-              src="/images/image-6.jpg"
+              src={featureImg}
               alt="Hydraulic manifold"
               fill
               className="object-cover border-2 border-primary-container"
+              placeholder="blur"
             />
             <div className="absolute -bottom-md -left-md bg-primary-container p-lg hidden md:block">
               <p className="font-headline-md text-headline-md">ISO 9001:2015</p>

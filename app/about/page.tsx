@@ -1,5 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import img1 from "@/public/images/pineda-evidencia-trabajo-altura.jpeg";
+import img2 from "@/public/images/pineda-mantenimiento-andamios.jpeg";
+import img3 from "@/public/images/pineda-mantenimiento-rampa-vacia.jpeg";
+import img4 from "@/public/images/pineda-rampa-hidraulica-camion.jpeg";
 
 export const metadata = {
   title: "Quiénes Somos | Pineda Hydraulic",
@@ -38,11 +42,12 @@ export default function About() {
           <div className="border-2 border-[#2D2D2D] bg-white p-sm">
             <div className="relative w-full aspect-square">
               <Image 
-                src="/images/image-1.jpg" 
+                src={img1} 
                 alt="Industrial Hydraulic System" 
                 fill 
                 className="object-cover"
                 priority
+                placeholder="blur"
               />
             </div>
           </div>
@@ -64,10 +69,11 @@ export default function About() {
           <div className="border border-[#E0E0E0] bg-[#F5F5F5] flex flex-col md:flex-row overflow-hidden">
             <div className="md:w-1/3 bg-on-secondary-fixed relative min-h-[250px]">
               <Image 
-                src="/images/image-2.jpg" 
+                src={img2} 
                 alt="Ing. Salvador Pineda" 
                 fill 
                 className="object-cover grayscale"
+                placeholder="blur"
               />
             </div>
             <div className="md:w-2/3 p-lg flex flex-col justify-center space-y-sm">
@@ -80,10 +86,11 @@ export default function About() {
           <div className="border border-[#E0E0E0] bg-[#F5F5F5] flex flex-col md:flex-row overflow-hidden">
             <div className="md:w-1/3 bg-on-secondary-fixed relative min-h-[250px]">
               <Image 
-                src="/images/image-3.jpg" 
+                src={img3} 
                 alt="Ing. Russell A. Sandoval" 
                 fill 
                 className="object-cover grayscale"
+                placeholder="blur"
               />
             </div>
             <div className="md:w-2/3 p-lg flex flex-col justify-center space-y-sm">
@@ -149,10 +156,11 @@ export default function About() {
           </div>
           <div className="h-24 w-40 relative border-2 border-primary overflow-hidden">
             <Image 
-              src="/images/image-4.jpg" 
+              src={img4} 
               alt="Map Location" 
               fill 
               className="object-cover"
+              placeholder="blur"
             />
           </div>
         </div>

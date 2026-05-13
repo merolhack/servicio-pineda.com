@@ -1,5 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import img7 from "@/public/images/pineda-duplicadores-estacionamiento.jpeg";
+import img8 from "@/public/images/pineda-rampas-estacionamiento-01.jpeg";
+import img9 from "@/public/images/pineda-evidencia-trabajo-altura.jpeg";
+import img10 from "@/public/images/pineda-compresora-industrial-itsa.jpeg";
 
 export const metadata = {
   title: "Servicios | Pineda Hydraulic",
@@ -56,10 +60,11 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-md h-auto md:h-[600px] lg:h-[800px]">
           <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden border-2 border-[#2D2D2D] h-64 md:h-auto">
             <Image 
-              src="/images/image-7.jpg" 
+              src={img7} 
               alt="Mantenimiento de Rampa Vehicular" 
               fill 
               className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              placeholder="blur"
             />
             <div className="absolute bottom-0 left-0 right-0 p-lg bg-on-surface/90 text-white transform translate-y-full group-hover:translate-y-0 transition-transform">
               <p className="font-label-bold uppercase tracking-wider">Mantenimiento de Rampa Vehicular</p>
@@ -67,10 +72,11 @@ export default function Services() {
           </div>
           <div className="md:col-span-2 relative group overflow-hidden border-2 border-[#2D2D2D] h-64 md:h-full">
             <Image 
-              src="/images/image-8.jpg" 
+              src={img8} 
               alt="Servicio de Bombas Hidráulicas" 
               fill 
               className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              placeholder="blur"
             />
             <div className="absolute bottom-0 left-0 right-0 p-lg bg-on-surface/90 text-white transform translate-y-full group-hover:translate-y-0 transition-transform">
               <p className="font-label-bold uppercase tracking-wider">Servicio de Bombas Hidráulicas</p>
@@ -78,10 +84,11 @@ export default function Services() {
           </div>
           <div className="relative group overflow-hidden border-2 border-[#2D2D2D] h-64 md:h-full">
             <Image 
-              src="/images/image-9.jpg" 
+              src={img9} 
               alt="Montaje de Estructuras" 
               fill 
               className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              placeholder="blur"
             />
             <div className="absolute bottom-0 left-0 right-0 p-lg bg-on-surface/90 text-white transform translate-y-full group-hover:translate-y-0 transition-transform">
               <p className="font-label-bold uppercase tracking-wider">Montaje de Estructuras</p>
@@ -89,10 +96,11 @@ export default function Services() {
           </div>
           <div className="relative group overflow-hidden border-2 border-[#2D2D2D] h-64 md:h-full">
             <Image 
-              src="/images/image-10.jpg" 
+              src={img10} 
               alt="Instalación de Compresoras" 
               fill 
               className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+              placeholder="blur"
             />
             <div className="absolute bottom-0 left-0 right-0 p-lg bg-on-surface/90 text-white transform translate-y-full group-hover:translate-y-0 transition-transform">
               <p className="font-label-bold uppercase tracking-wider">Instalación de Compresoras</p>

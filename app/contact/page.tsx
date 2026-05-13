@@ -1,4 +1,5 @@
 import Image from "next/image";
+import mapImg from "@/public/images/pineda-evidencia-trabajo-altura.jpeg";
 
 export const metadata = {
   title: "Contacto | Pineda Hydraulic",
@@ -41,10 +42,11 @@ export default function Contact() {
           </div>
           <div className="w-full h-64 border-2 border-[#2D2D2D] overflow-hidden relative">
             <Image 
-              src="/images/image-11.jpg" 
+              src={mapImg} 
               alt="Map view of Mexico City" 
               fill 
               className="object-cover grayscale contrast-125"
+              placeholder="blur"
             />
           </div>
         </section>
