@@ -31,27 +31,20 @@ jobs:
           cp -r public .next/standalone/
           cp -r .next/static .next/standalone/.next/
 
-      - name: Deploy to HostGator via Rsync
-        uses: easingthemes/ssh-deploy@v2
+      - name: Setup SSH
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.HOSTGATOR_REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.HOSTGATOR_REMOTE_USER }}
-          REMOTE_PORT: 2222
-          TARGET: ${{ secrets.HOSTGATOR_TARGET_PATH }}
-          SOURCE: ".next/standalone/"
-          ARGS: "-rltgoDzvO --delete"
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p 2222 -H ${{ secrets.HOSTGATOR_REMOTE_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to HostGator via Rsync
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          rsync -rltgoDzvO --delete -e "ssh -p 2222 -o StrictHostKeyChecking=no -o IdentitiesOnly=yes -i ~/.ssh/id_rsa" .next/standalone/ ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }}:${{ secrets.HOSTGATOR_TARGET_PATH }}
 
       - name: Restart Passenger App (Zero-Downtime)
-        uses: appleboy/ssh-action@master
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        with:
-          host: ${{ secrets.HOSTGATOR_REMOTE_HOST }}
-          username: ${{ secrets.HOSTGATOR_REMOTE_USER }}
-          key: ${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}
-          port: 2222
-          script: |
-            cd ${{ secrets.HOSTGATOR_TARGET_PATH }}
-            mkdir -p tmp
-            touch tmp/restart.txt
+        run: |
+          ssh -p 2222 -o StrictHostKeyChecking=no -o IdentitiesOnly=yes -i ~/.ssh/id_rsa ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }} "mkdir -p ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp && touch ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp/restart.txt"
