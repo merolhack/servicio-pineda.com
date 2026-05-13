@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  output: "standalone",
+const nextConfig: import('next').NextConfig = {
+  output: "export",
+  images: {
+    unoptimized: true,
+  }
 };
 
 export default nextConfig;

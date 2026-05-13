@@ -26,11 +26,6 @@ jobs:
       - name: Build Next.js App
         run: npm run build
 
-      - name: Prepare Standalone Directory
-        run: |
-          cp -r public .next/standalone/
-          cp -r .next/static .next/standalone/.next/
-
       - name: Setup SSH
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
@@ -55,9 +50,4 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           shopt -s dotglob
-          scp -r -P 2222 .next/standalone/* ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }}:${{ secrets.HOSTGATOR_TARGET_PATH }}/
-
-      - name: Restart Passenger App (Zero-Downtime)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          ssh -p 2222 ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }} "mkdir -p ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp && touch ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp/restart.txt"
+          scp -r -P 2222 out/* ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }}:public_html/
