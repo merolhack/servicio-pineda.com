@@ -31,33 +31,27 @@ jobs:
           cp -r public .next/standalone/
           cp -r .next/static .next/standalone/.next/
 
-      - name: Setup SSH
+      - name: Deploy to HostGator via SCP
+        uses: appleboy/scp-action@master
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          mkdir -p ~/.ssh
-          cat << 'EOF' > ~/.ssh/id_rsa
-          ${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}
-          EOF
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -p 2222 -H ${{ secrets.HOSTGATOR_REMOTE_HOST }} >> ~/.ssh/known_hosts
-          cat << 'EOF' > ~/.ssh/config
-          Host *
-            StrictHostKeyChecking no
-            IdentitiesOnly yes
-            IdentityFile ~/.ssh/id_rsa
-            PubkeyAcceptedAlgorithms ssh-rsa
-            PubkeyAcceptedKeyTypes ssh-rsa
-            HostKeyAlgorithms +ssh-rsa
-            BatchMode yes
-          EOF
-          chmod 600 ~/.ssh/config
-
-      - name: Deploy to HostGator via Rsync
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          rsync -rltgoDzvO --delete -e "ssh -p 2222" .next/standalone/ ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }}:${{ secrets.HOSTGATOR_TARGET_PATH }}
+        with:
+          host: ${{ secrets.HOSTGATOR_REMOTE_HOST }}
+          username: ${{ secrets.HOSTGATOR_REMOTE_USER }}
+          key: ${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}
+          port: 2222
+          source: ".next/standalone/*"
+          target: ${{ secrets.HOSTGATOR_TARGET_PATH }}
+          strip_components: 2
 
       - name: Restart Passenger App (Zero-Downtime)
+        uses: appleboy/ssh-action@master
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          ssh -p 2222 ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }} "mkdir -p ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp && touch ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp/restart.txt"
+        with:
+          host: ${{ secrets.HOSTGATOR_REMOTE_HOST }}
+          username: ${{ secrets.HOSTGATOR_REMOTE_USER }}
+          key: ${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}
+          port: 2222
+          script: |
+            cd ${{ secrets.HOSTGATOR_TARGET_PATH }}
+            mkdir -p tmp
+            touch tmp/restart.txt
