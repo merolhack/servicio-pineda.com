@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PINEDA HYDRAULIC | Sitio en Construcción</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Hanken Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#ffb4ab",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e2e2e2",
+                    "primary": "#ba0013",
+                    "tertiary-fixed-dim": "#c7c6c6",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "tertiary": "#5b5b5c",
+                    "error": "#ba1a1a",
+                    "surface": "#f9f9f9",
+                    "secondary": "#5f5e5e",
+                    "primary-container": "#e31e24",
+                    "on-surface-variant": "#5d3f3c",
+                    "on-background": "#1a1c1c",
+                    "tertiary-fixed": "#e3e2e2",
+                    "secondary-container": "#e4e2e1",
+                    "tertiary-container": "#747474",
+                    "surface-container-low": "#f3f3f3",
+                    "surface-bright": "#f9f9f9",
+                    "on-tertiary-fixed-variant": "#464747",
+                    "on-secondary-fixed-variant": "#474747",
+                    "secondary-fixed": "#e4e2e1",
+                    "surface-dim": "#dadada",
+                    "on-primary-fixed-variant": "#93000d",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-secondary-container": "#656464",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#eeeeee",
+                    "on-tertiary-fixed": "#1b1c1c",
+                    "surface-variant": "#e2e2e2",
+                    "inverse-on-surface": "#f1f1f1",
+                    "on-error-container": "#93000a",
+                    "background": "#f9f9f9",
+                    "inverse-surface": "#2f3131",
+                    "inverse-primary": "#ffb4ab",
+                    "surface-tint": "#c00014",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed": "#410002",
+                    "on-primary-container": "#fffafa",
+                    "on-surface": "#1a1c1c",
+                    "on-tertiary-container": "#fdfbfb",
+                    "outline": "#926f6b",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#c8c6c6",
+                    "surface-container-high": "#e8e8e8",
+                    "primary-fixed": "#ffdad6",
+                    "outline-variant": "#e7bdb8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "margin-mobile": "20px",
+                    "container-max": "1280px",
+                    "margin-desktop": "64px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "label-sm": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-lg": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "headline-xl-mobile": ["Hanken Grotesk"],
+                    "headline-xl": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-xl-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "800"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-background border-b-2 border-secondary-container dark:border-outline fixed top-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-base">
+<img alt="Pineda Hydraulic Logo" class="h-8 md:h-10 w-auto" src="https://lh3.googleusercontent.com/aida/ADBb0uj7WcbOtdAT3GLuVi-aHiGOLdV3zXoYeo4oAemu4DCIPVXLFYD_2N_5T4f6jiyvYeUicY5rVIIVb0LahdAZ0l1_GNtHjUWHGjrnKOgtenCZoTbqoOP6OLy4rO37AyFF3thQLMOOYU5eIicMeYkYFZdwQ5NtkMrIgm_ePTlkmgFtj6s1rvKrmqy0te_XEQF6ukCZkoFufAOFjYcMIIa-kUCU05UjFcp2F1afrmVBu4k9w5shj9JJOS7xrg"/>
+<span class="font-headline-md text-headline-md font-extrabold tracking-tight text-primary dark:text-primary-fixed-dim">PINEDA HYDRAULIC</span>
+</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-label-lg text-label-lg uppercase text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors" href="#">Services</a>
+<a class="font-label-lg text-label-lg uppercase text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors" href="#">Contact</a>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 font-label-lg text-label-lg uppercase rounded active:scale-95 duration-100 ease-in-out">
+                    GET QUOTE
+                </button>
+</nav>
+<div class="md:hidden">
+<span class="material-symbols-outlined text-primary text-3xl">menu</span>
+</div>
+</div>
+</header>
+<main class="pt-24 min-h-screen">
+<!-- Hero Section -->
+<section class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-20 md:py-32 flex flex-col items-center text-center">
+<div class="mb-12">
+<img alt="Pineda Hydraulic Main Logo" class="h-32 md:h-48 w-auto mx-auto mb-8" src="https://lh3.googleusercontent.com/aida/ADBb0uj7WcbOtdAT3GLuVi-aHiGOLdV3zXoYeo4oAemu4DCIPVXLFYD_2N_5T4f6jiyvYeUicY5rVIIVb0LahdAZ0l1_GNtHjUWHGjrnKOgtenCZoTbqoOP6OLy4rO37AyFF3thQLMOOYU5eIicMeYkYFZdwQ5NtkMrIgm_ePTlkmgFtj6s1rvKrmqy0te_XEQF6ukCZkoFufAOFjYcMIIa-kUCU05UjFcp2F1afrmVBu4k9w5shj9JJOS7xrg"/>
+<h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-on-background mb-4 uppercase tracking-tighter">
+                    SITIO EN <span class="text-primary">CONSTRUCCIÓN</span>
+</h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl mx-auto">
+                    Estamos trabajando para ofrecerle el mejor servicio técnico industrial en sistemas hidráulicos. Muy pronto descubrirá una nueva forma de gestionar su mantenimiento industrial.
+                </p>
+</div>
+<!-- Progress Indicator -->
+<div class="w-full max-w-lg bg-surface-container border-2 border-outline-variant p-1 mb-8">
+<div class="bg-primary h-6 relative" style="width: 85%;">
+<span class="absolute right-2 top-0 text-[10px] font-bold text-white leading-6">85% COMPLETE</span>
+</div>
+</div>
+<div class="flex flex-wrap justify-center gap-gutter">
+<div class="border-2 border-primary p-4 min-w-[120px]">
+<span class="block font-headline-lg text-headline-lg text-primary">02</span>
+<span class="font-label-sm text-label-sm uppercase text-secondary">Días</span>
+</div>
+<div class="border-2 border-primary p-4 min-w-[120px]">
+<span class="block font-headline-lg text-headline-lg text-primary">14</span>
+<span class="font-label-sm text-label-sm uppercase text-secondary">Horas</span>
+</div>
+<div class="border-2 border-primary p-4 min-w-[120px]">
+<span class="block font-headline-lg text-headline-lg text-primary">32</span>
+<span class="font-label-sm text-label-sm uppercase text-secondary">Minutos</span>
+</div>
+</div>
+</section>
+<!-- Content Section: Bento Grid Layout -->
+<section class="bg-surface-container-low border-t-2 border-outline-variant">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-20">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- About Card -->
+<div class="md:col-span-8 bg-white border border-outline-variant p-8 md:p-12">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" data-icon="engineering">engineering</span>
+<h2 class="font-headline-md text-headline-md text-on-background mb-6 uppercase">Nuestra Especialidad</h2>
+<p class="font-body-md text-body-md text-secondary leading-relaxed mb-8">
+                            Pineda Hydraulic se especializa en el mantenimiento, reparación y optimización de sistemas hidráulicos industriales. Desde el diagnóstico técnico hasta la reconstrucción total de componentes, nuestro equipo garantiza la continuidad de su operación. Pronto estaremos en línea con nuestro catálogo completo de servicios y soluciones técnicas avanzadas.
+                        </p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="flex items-center gap-base p-4 bg-surface border-l-4 border-primary">
+<span class="material-symbols-outlined text-primary" data-icon="settings_suggest">settings_suggest</span>
+<span class="font-label-lg text-label-lg uppercase">Mantenimiento Preventivo</span>
+</div>
+<div class="flex items-center gap-base p-4 bg-surface border-l-4 border-primary">
+<span class="material-symbols-outlined text-primary" data-icon="build">build</span>
+<span class="font-label-lg text-label-lg uppercase">Reparación de Cilindros</span>
+</div>
+</div>
+</div>
+<!-- Contact & CTA Card -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="bg-primary text-white p-8 border-2 border-primary">
+<h3 class="font-headline-md text-headline-md mb-4 uppercase">¿Urgencias?</h3>
+<p class="font-body-md text-body-md mb-8 opacity-90">Para consultas técnicas urgentes o servicios inmediatos, no dude en contactarnos.</p>
+<a class="flex items-center gap-base font-label-lg text-label-lg bg-white text-primary px-6 py-4 rounded-sm hover:bg-surface transition-colors" href="mailto:contacto@pinedahydraulic.com">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+                                CONTACTO@PINEDAHYDRAULIC.COM
+                            </a>
+</div>
+<div class="bg-white border border-outline-variant p-8">
+<h4 class="font-label-lg text-label-lg uppercase mb-2 text-secondary">Sede Central</h4>
+<div class="flex items-start gap-base">
+<span class="material-symbols-outlined text-primary mt-1" data-icon="location_on">location_on</span>
+<p class="font-body-md text-body-md text-on-background">Sector Industrial Norte, Edificio Pineda. Ciudad Industrial.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Specs Image Section (Full Width Style) -->
+<section class="relative h-[400px] w-full overflow-hidden">
+<div class="absolute inset-0 bg-on-background/60 z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover grayscale" data-alt="A high-contrast, industrial close-up of heavy hydraulic machinery parts in a professional workshop. The lighting is dramatic and technical, highlighting the metallic textures and precision engineering of pistons and valves. The overall aesthetic is clean, corporate, and robust, with a palette dominated by deep charcoal grays and bright metallic highlights, mirroring the reliability and technical expertise of Pineda Hydraulic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHFORzzA0LhYLIIBNsTW4gco8loN5Jwsr5O5Q8ZVgxMc37PiAWL2GNOBgk9tFgPg8Rj57HxetY-7UtNcIx2DNJwQE_n3NfbJ3lSElrPNQVW3ho3k_t4meWPInaPXSCy2e0Ubad1jef2yQZcUc7w-ek4qAMB7omVJeaX53Rl1hYvPT-KmtGz7YzC1wi3SzaGOFHxYrnmRUKYAt4LrfbC3i43tdJMmgeLx_HnouoIunnaZ5j0X1G3lKzvhNpLiv4BXuV5QVpz6_8rSY"/>
+<div class="relative z-20 h-full flex items-center justify-center text-center px-margin-mobile">
+<div class="max-w-3xl">
+<h2 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-white mb-4 uppercase">POTENCIA Y PRECISIÓN</h2>
+<p class="font-body-lg text-body-lg text-surface-variant">Ingeniería hidráulica de vanguardia al servicio de la industria pesada.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-surface-dim border-t-2 border-outline-variant dark:border-outline">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-base gap-gutter max-w-container-max mx-auto py-12">
+<div class="flex flex-col items-center md:items-start gap-2">
+<span class="font-headline-md text-headline-md font-bold text-primary">PINEDA HYDRAULIC</span>
+<p class="font-label-sm text-label-sm uppercase text-secondary dark:text-secondary-fixed-dim">© 2026 PINEDA HYDRAULIC INDUSTRIAL SERVICES. ALL RIGHTS RESERVED.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-label-sm text-label-sm uppercase text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim underline decoration-2" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm uppercase text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim underline decoration-2" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm uppercase text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim underline decoration-2" href="#">LinkedIn</a>
+</div>
+</div>
+</footer>
+</body></html>

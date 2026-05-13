@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@config "../tailwind.config.ts";
+
+@theme inline {
+  --font-sans: var(--font-hanken-grotesk);
+}
+
+body {
+  background-color: theme('colors.background');
+  color: theme('colors.on-background');
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
