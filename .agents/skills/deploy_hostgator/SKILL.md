@@ -9,8 +9,9 @@ Debes adherirte estrictamente a las siguientes prácticas arquitectónicas para 
 1. **Construcción Externa (Off-Server Build):** Los servidores compartidos de HostGator tienen límites estrictos de CPU y memoria (RAM) que causan errores de "Recurso temporalmente no disponible" o matan el proceso al intentar ejecutar `npm run build`. **Toda la construcción debe realizarse en el runner de GitHub Actions**.
 2. **Modo Standalone:** Asegúrate de que el archivo `next.config.js` de la aplicación tenga configurado `output: 'standalone'`. Esto crea un servidor Node.js mínimo y rastrea dependencias, ideal para integrarse con Phusion Passenger en el cPanel de HostGator.
 3. **Preparación de Artefactos:** La carpeta `.next/standalone` no incluye por defecto los archivos estáticos. **Debes agregar un paso en el pipeline para copiar las carpetas `public` y `.next/static` dentro de `.next/standalone`** antes de transferir los archivos.
-4. **Despliegue vía Rsync sobre SSH (Puerto 2222):** Para transferir los archivos, utiliza la acción `easingthemes/ssh-deploy`. **Es obligatorio especificar el puerto 2222**, ya que HostGator utiliza este puerto no estándar para conexiones SSH en planes compartidos como medida de seguridad. Se requerirá una clave SSH en formato PEM (RSA).
-5. **Reinicio Graceful con Phusion Passenger:** En HostGator, las aplicaciones Node.js son administradas por Phusion Passenger. Para aplicar los cambios sin tirar el servidor, **debes ejecutar un comando remoto para crear el archivo `tmp/restart.txt`** (`mkdir -p tmp && touch tmp/restart.txt`). Passenger detectará este archivo y recargará los procesos de manera segura.
+4. **Despliegue vía SCP Nativo:** ¡PROHIBIDO usar acciones como `easingthemes/ssh-deploy` o `appleboy/scp-action`! El Jailshell de HostGator causa bugs severos: interrumpe el flujo binario de `rsync` ("protocol mismatch") debido a mensajes interactivos ocultos en `.bashrc`, y confunde la detección de OS a las acciones escritas en Go (asumiendo que es Windows). **Se debe usar siempre comandos bash nativos (`scp -r` puro)**.
+5. **Configuración SSH Estricta para cPanel:** OpenSSH ha deshabilitado el uso de claves RSA antiguas (SHA-1) por defecto, pero HostGator aún suele requerirlas en sus conexiones. Por lo tanto, debes forzar el algoritmo legacy mediante el archivo `~/.ssh/config` (`PubkeyAcceptedAlgorithms ssh-rsa`) para evitar el error silencioso de firma rechazada ("Too many authentication failures").
+6. **Reinicio Graceful con Phusion Passenger:** En HostGator, las aplicaciones Node.js son administradas por Phusion Passenger. Para aplicar los cambios sin tirar el servidor, debes ejecutar el comando nativo `ssh` para crear el archivo `tmp/restart.txt` (`mkdir -p tmp && touch tmp/restart.txt`). Passenger lo detectará y reiniciará Node.js automáticamente.
 
 ## INSTRUCCIONES DE EJECUCIÓN PARA EL AGENTE
 
@@ -41,7 +42,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18' # Ajustar a la versión configurada en Node.js Selector de cPanel
+          node-version: '20' # Requerido para Next.js >= 15. Cambiar a 20 o 22 en cPanel.
           cache: 'npm'
 
       - name: Install Dependencies
@@ -55,30 +56,36 @@ jobs:
           cp -r public .next/standalone/
           cp -r .next/static .next/standalone/.next/
 
-      - name: Deploy to HostGator via Rsync
-        uses: easingthemes/ssh-deploy@v2
+      - name: Setup SSH
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.HOSTGATOR_REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.HOSTGATOR_REMOTE_USER }}
-          REMOTE_PORT: 2222
-          TARGET: ${{ secrets.HOSTGATOR_TARGET_PATH }}
-          SOURCE: ".next/standalone/"
-          ARGS: "-rltgoDzvO --delete"
+        run: |
+          mkdir -p ~/.ssh
+          cat << 'EOF' > ~/.ssh/id_rsa
+          ${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}
+          EOF
+          chmod 600 ~/.ssh/id_rsa
+          cat << 'EOF' > ~/.ssh/config
+          Host *
+            StrictHostKeyChecking no
+            IdentitiesOnly yes
+            IdentityFile ~/.ssh/id_rsa
+            PubkeyAcceptedAlgorithms ssh-rsa
+            PubkeyAcceptedKeyTypes ssh-rsa
+            HostKeyAlgorithms +ssh-rsa
+            BatchMode yes
+          EOF
+          chmod 600 ~/.ssh/config
+
+      - name: Deploy to HostGator via native SCP
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          shopt -s dotglob
+          scp -r -P 2222 .next/standalone/* ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }}:${{ secrets.HOSTGATOR_TARGET_PATH }}/
 
       - name: Restart Passenger App (Zero-Downtime)
-        uses: appleboy/ssh-action@master
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        with:
-          host: ${{ secrets.HOSTGATOR_REMOTE_HOST }}
-          username: ${{ secrets.HOSTGATOR_REMOTE_USER }}
-          key: ${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}
-          port: 2222
-          script: |
-            cd ${{ secrets.HOSTGATOR_TARGET_PATH }}
-            mkdir -p tmp
-            touch tmp/restart.txt
+        run: |
+          ssh -p 2222 ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }} "mkdir -p ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp && touch ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp/restart.txt"
 ```
 
 ### Paso 3: Instrucciones Finales para el Usuario
