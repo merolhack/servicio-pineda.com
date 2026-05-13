@@ -3,12 +3,17 @@
 @config "../tailwind.config.ts";
 
 @theme inline {
-  --font-sans: var(--font-hanken-grotesk);
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-oswald);
 }
 
 body {
   background-color: theme('colors.background');
   color: theme('colors.on-background');
+}
+
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: var(--font-display);
 }
 
 .material-symbols-outlined {

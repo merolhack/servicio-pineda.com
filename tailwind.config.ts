@@ -58,7 +58,8 @@ const config: Config = {
         'surface-variant': '#fddbd7',
       },
       fontFamily: {
-        sans: ['var(--font-hanken-grotesk)', 'sans-serif'],
+        sans: ['var(--font-manrope)', 'sans-serif'],
+        display: ['var(--font-oswald)', 'sans-serif'],
       },
       fontSize: {
         'display-lg': ['48px', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '800' }],
