@@ -35,16 +35,28 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          cat << 'EOF' > ~/.ssh/id_rsa
+          ${{ secrets.HOSTGATOR_SSH_PRIVATE_KEY }}
+          EOF
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -p 2222 -H ${{ secrets.HOSTGATOR_REMOTE_HOST }} >> ~/.ssh/known_hosts
+          cat << 'EOF' > ~/.ssh/config
+          Host *
+            StrictHostKeyChecking no
+            IdentitiesOnly yes
+            IdentityFile ~/.ssh/id_rsa
+            PubkeyAcceptedKeyTypes +ssh-rsa
+            HostKeyAlgorithms +ssh-rsa
+            BatchMode yes
+          EOF
+          chmod 600 ~/.ssh/config
 
       - name: Deploy to HostGator via Rsync
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          rsync -rltgoDzvO --delete -e "ssh -p 2222 -o StrictHostKeyChecking=no -o IdentitiesOnly=yes -i ~/.ssh/id_rsa" .next/standalone/ ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }}:${{ secrets.HOSTGATOR_TARGET_PATH }}
+          rsync -rltgoDzvO --delete -e "ssh -vvv -p 2222" .next/standalone/ ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }}:${{ secrets.HOSTGATOR_TARGET_PATH }}
 
       - name: Restart Passenger App (Zero-Downtime)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          ssh -p 2222 -o StrictHostKeyChecking=no -o IdentitiesOnly=yes -i ~/.ssh/id_rsa ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }} "mkdir -p ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp && touch ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp/restart.txt"
+          ssh -vvv -p 2222 ${{ secrets.HOSTGATOR_REMOTE_USER }}@${{ secrets.HOSTGATOR_REMOTE_HOST }} "mkdir -p ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp && touch ${{ secrets.HOSTGATOR_TARGET_PATH }}/tmp/restart.txt"
