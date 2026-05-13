@@ -145,7 +145,7 @@ export default function About() {
 
       {/* Location Context */}
       <section className="border border-[#E0E0E0] bg-[#F5F5F5] p-lg flex flex-col md:flex-row items-center justify-between gap-xl">
-        <div className="space-y-xs max-w-md text-center md:text-left">
+        <div className="space-y-xs max-w-[28rem] text-center md:text-left">
           <h3 className="font-headline-md text-headline-md uppercase">Ubicación Estratégica</h3>
           <p className="text-on-surface-variant">Operamos desde el corazón industrial de la Ciudad de México para brindar atención rápida y eficiente a nuestros clientes corporativos y privados.</p>
         </div>

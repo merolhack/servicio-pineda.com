@@ -26,7 +26,7 @@ export default function Home() {
             <h1 className="font-display-lg text-display-lg text-[#2D2D2D] uppercase leading-tight">
               Innovación que <span className="text-primary-container">transforma</span> el mercado industrial
             </h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[32rem]">
               Soluciones de ingeniería de alta precisión para sistemas hidráulicos complejos. Durabilidad, potencia y exactitud en cada componente.
             </p>
             <div className="flex gap-md pt-md">
@@ -68,7 +68,7 @@ export default function Home() {
 
       <section className="py-xxl max-w-[1280px] mx-auto px-lg">
         <div className="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
-          <div className="max-w-xl">
+          <div className="max-w-[36rem]">
             <h2 className="font-headline-lg text-headline-lg text-[#2D2D2D] uppercase mb-sm">Servicios Especializados</h2>
             <p className="font-body-md text-body-md text-on-surface-variant">Ofrecemos un catálogo integral de servicios técnicos diseñados para maximizar la vida útil de su maquinaria pesada.</p>
           </div>

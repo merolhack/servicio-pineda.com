@@ -13,7 +13,7 @@ export default function Contact() {
         <section className="md:col-span-5 space-y-xl">
           <div>
             <h1 className="font-display-lg text-display-lg text-on-surface mb-md uppercase leading-tight">Contacto</h1>
-            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-[28rem]">
               Estamos listos para atender sus necesidades de mantenimiento y reparación hidráulica industrial. Contáctenos para una asesoría técnica especializada.
             </p>
           </div>
