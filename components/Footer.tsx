@@ -7,7 +7,7 @@ export function Footer() {
   return (
     <footer className="w-full bg-surface-container border-t-2 border-on-secondary-fixed mt-xxl">
       <div className="flex flex-col md:flex-row justify-between items-start gap-lg w-full px-lg py-xl max-w-[1280px] mx-auto">
-        <div className="flex flex-col gap-md max-w-sm">
+        <div className="flex flex-col gap-md max-w-[24rem]">
           <Link href="/">
             <Image
               src="/images/logo.png"
@@ -54,7 +54,7 @@ export function Footer() {
             </span>
           </div>
         </div>
-        <div className="flex flex-col gap-md max-w-xs w-full">
+        <div className="flex flex-col gap-md max-w-[20rem] w-full">
           <h5 className="font-label-bold text-label-bold text-charcoal uppercase mb-xs text-primary">
             Boletín Técnico
           </h5>
