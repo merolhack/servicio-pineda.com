@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ContactForm from "@/components/ContactForm";
 import mapImg from "@/public/images/pineda-evidencia-trabajo-altura.jpeg";
 
 export const metadata = {
@@ -53,71 +54,7 @@ export default function Contact() {
 
         <section className="md:col-span-7 bg-white border-2 border-[#2D2D2D] p-xl">
           <h2 className="font-headline-lg text-headline-lg text-on-surface mb-xl uppercase">Enviar Mensaje</h2>
-          <form className="space-y-lg">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
-              <div className="flex flex-col gap-xs">
-                <label className="font-label-bold text-label-bold text-[#2D2D2D] tracking-widest">NOMBRE COMPLETO</label>
-                <input 
-                  className="border border-[#2D2D2D] rounded-none focus:border-[2px] focus:outline-none p-md bg-white font-body-md" 
-                  placeholder="Ej. Juan Pérez" 
-                  type="text" 
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-xs">
-                <label className="font-label-bold text-label-bold text-[#2D2D2D] tracking-widest">EMPRESA</label>
-                <input 
-                  className="border border-[#2D2D2D] rounded-none focus:border-[2px] focus:outline-none p-md bg-white font-body-md" 
-                  placeholder="Nombre de su organización" 
-                  type="text" 
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
-              <div className="flex flex-col gap-xs">
-                <label className="font-label-bold text-label-bold text-[#2D2D2D] tracking-widest">EMAIL</label>
-                <input 
-                  className="border border-[#2D2D2D] rounded-none focus:border-[2px] focus:outline-none p-md bg-white font-body-md" 
-                  placeholder="correo@ejemplo.com" 
-                  type="email" 
-                  required
-                />
-              </div>
-              <div className="flex flex-col gap-xs">
-                <label className="font-label-bold text-label-bold text-[#2D2D2D] tracking-widest">TELÉFONO</label>
-                <input 
-                  className="border border-[#2D2D2D] rounded-none focus:border-[2px] focus:outline-none p-md bg-white font-body-md" 
-                  placeholder="55 0000 0000" 
-                  type="tel" 
-                />
-              </div>
-            </div>
-            <div className="flex flex-col gap-xs">
-              <label className="font-label-bold text-label-bold text-[#2D2D2D] tracking-widest">SERVICIO REQUERIDO</label>
-              <select className="border border-[#2D2D2D] rounded-none focus:border-[2px] focus:outline-none p-md bg-white font-body-md appearance-none">
-                <option value="">Seleccione una opción</option>
-                <option value="mantenimiento">Mantenimiento Preventivo</option>
-                <option value="reparacion">Reparación de Cilindros</option>
-                <option value="diagnostico">Diagnóstico de Sistemas</option>
-                <option value="otro">Otro</option>
-              </select>
-            </div>
-            <div className="flex flex-col gap-xs">
-              <label className="font-label-bold text-label-bold text-[#2D2D2D] tracking-widest">MENSAJE</label>
-              <textarea 
-                className="border border-[#2D2D2D] rounded-none focus:border-[2px] focus:outline-none p-md bg-white font-body-md resize-y" 
-                placeholder="Describa brevemente su requerimiento técnico..." 
-                rows={5}
-                required
-              ></textarea>
-            </div>
-            <button 
-              className="w-full bg-[#E31E24] text-white py-lg font-label-bold uppercase text-lg tracking-widest active:scale-[0.98] transition-all hover:bg-primary" 
-              type="submit"
-            >
-              Enviar Solicitud Técnica
-            </button>
-          </form>
+          <ContactForm />
         </section>
       </div>
     </div>

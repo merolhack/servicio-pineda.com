@@ -3,6 +3,7 @@ import { Oswald, Manrope } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { Toaster } from "react-hot-toast";
 
 const fontDisplay = Oswald({
   variable: "--font-oswald",
@@ -38,6 +39,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );
