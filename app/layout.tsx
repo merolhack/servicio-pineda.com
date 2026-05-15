@@ -4,7 +4,10 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
+
 import { GoogleAnalytics } from "@next/third-parties/google";
+
+
 
 const fontDisplay = Oswald({
   variable: "--font-oswald",
