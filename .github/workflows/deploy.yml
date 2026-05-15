@@ -20,7 +20,7 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci && npm install @next/third-parties --legacy-peer-deps
 
       - name: Debug node_modules
         run: ls -R node_modules/@next/third-parties
