@@ -18,13 +18,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
 
+      - name: Debug node_modules
+        run: ls -R node_modules/@next/third-parties
+
       - name: Build Next.js App
-        run: npm run build
+        run: npx next build
         env:
           NEXT_PUBLIC_CONTACT_AUTH_KEY: ${{ secrets.NEXT_PUBLIC_CONTACT_AUTH_KEY || 'ph_auth_2026_secure_bridge' }}
 

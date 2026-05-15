@@ -1,5 +1,4 @@
 const nextConfig: import('next').NextConfig = {
-  transpilePackages: ["@next/third-parties"],
   output: "export",
   trailingSlash: true,
   images: {
