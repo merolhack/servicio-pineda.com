@@ -22,9 +22,6 @@ jobs:
       - name: Install Dependencies
         run: npm ci && npm install @next/third-parties --legacy-peer-deps
 
-      - name: Debug node_modules
-        run: ls -R node_modules/@next/third-parties
-
       - name: Build Next.js App
         run: npx next build
         env:
