@@ -44,13 +44,23 @@ export function Footer() {
               <span className="material-symbols-outlined text-sm">location_on</span>
               Mariano Salas No. 78-A, CDMX
             </span>
-            <span className="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
-              <span className="material-symbols-outlined text-sm">call</span>
-              +52 55 1234 5678
-            </span>
+            <div className="flex flex-col gap-1">
+              <span className="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+                <span className="material-symbols-outlined text-sm">call</span>
+                55 5136 1728
+              </span>
+              <span className="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+                <span className="material-symbols-outlined text-sm">call</span>
+                55 1446 7730
+              </span>
+              <span className="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+                <span className="material-symbols-outlined text-sm">call</span>
+                56 7117 3897
+              </span>
+            </div>
             <span className="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
               <span className="material-symbols-outlined text-sm">mail</span>
-              contacto@pinedahydraulic.com
+              russell@servicio-pineda.com
             </span>
           </div>
         </div>

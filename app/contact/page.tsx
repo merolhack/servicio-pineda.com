@@ -29,15 +29,17 @@ export default function Contact() {
             <div className="flex items-start gap-md p-lg border border-[#E0E0E0] bg-surface-container-low">
               <span className="material-symbols-outlined text-primary text-3xl">call</span>
               <div>
-                <span className="font-label-bold text-label-bold block uppercase mb-xs tracking-wider">Teléfono</span>
+                <span className="font-label-bold text-label-bold block uppercase mb-xs tracking-wider">Teléfonos</span>
+                <p className="font-body-md text-body-md text-on-surface-variant">55 5136 1728</p>
                 <p className="font-body-md text-body-md text-on-surface-variant">55 1446 7730</p>
+                <p className="font-body-md text-body-md text-on-surface-variant">56 7117 3897</p>
               </div>
             </div>
             <div className="flex items-start gap-md p-lg border border-[#E0E0E0] bg-surface-container-low">
               <span className="material-symbols-outlined text-primary text-3xl">mail</span>
               <div>
                 <span className="font-label-bold text-label-bold block uppercase mb-xs tracking-wider">Correo Electrónico</span>
-                <p className="font-body-md text-body-md text-on-surface-variant">russellsandoval41@gmail.com</p>
+                <p className="font-body-md text-body-md text-on-surface-variant">russell@servicio-pineda.com</p>
               </div>
             </div>
           </div>
