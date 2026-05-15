@@ -37,3 +37,13 @@ The main objective of this repository is the migration of the static site "Pined
 ## 5. File Synchronization Note
 - Ensure that `public/api/contact.php` is synced to the active `public_html/api/` directory on HostGator.
 - The `.env` file must be present in the application root on the server for the PHP script to load credentials.
+
+## 6. Google Analytics 4 (GA4)
+- **Library:** `@next/third-parties/google`
+- **ID:** `G-ZY9QXQXW49`
+- **Implementation:** `<GoogleAnalytics />` component in `app/layout.tsx`.
+- **Note:** In Next.js 16+, GA4 components should be placed within the `<body>` for consistent initialization in static exports.
+
+## 7. Known CI/CD Gotchas & Workarounds
+- **Turbopack Build Errors (CI Only):** In some versions of Next.js 16 (Canary/Beta), Turbopack may fail to resolve scoped packages like `@next/third-parties` during the build step in GitHub Actions.
+- **Workaround:** Add an explicit `npm install <package-name> --legacy-peer-deps` step in the workflow AFTER `npm ci` but BEFORE `npm run build`. This ensures the module is correctly linked in the runner's virtual filesystem.
