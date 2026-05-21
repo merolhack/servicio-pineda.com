@@ -20,6 +20,54 @@ export function Footer() {
           <p className="font-body-md text-body-md text-on-surface-variant">
             Servicio técnico industrial de alta precisión para el sector hidráulico nacional e internacional.
           </p>
+          <div className="flex items-center gap-md mt-sm">
+            <a
+              href="https://facebook.com/PinedaHydraulic"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full border border-on-surface-variant/20 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary transition-all duration-200"
+              title="Facebook"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a
+              href="https://reparacion-mantenimiento.mercadolibre.com.mx/MLM-2945738451-servicio-tecnico-industrial-pineda-_JM"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full border border-on-surface-variant/20 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary transition-all duration-200"
+              title="Mercado Libre"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m11 17 2 2a1 1 0 1 0 3-3" />
+                <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" />
+                <path d="m21 3 1 11h-2" />
+                <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" />
+                <path d="M3 4h8" />
+              </svg>
+            </a>
+          </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-xl">
           <div className="flex flex-col gap-sm">
@@ -88,7 +136,52 @@ export function Footer() {
         <p className="font-label-sm text-label-sm text-on-surface-variant text-center md:text-left flex justify-between items-center">
           <span>© {new Date().getFullYear()} Pineda Hydraulic. Todos los derechos reservados.</span>
           <span className="flex gap-4">
-            <a href="#" className="hover:text-primary transition-colors"><span className="material-symbols-outlined text-xl">share</span></a>
+            <a
+              href="https://facebook.com/PinedaHydraulic"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors"
+              title="Facebook"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+            <a
+              href="https://reparacion-mantenimiento.mercadolibre.com.mx/MLM-2945738451-servicio-tecnico-industrial-pineda-_JM"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors"
+              title="Mercado Libre"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m11 17 2 2a1 1 0 1 0 3-3" />
+                <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" />
+                <path d="m21 3 1 11h-2" />
+                <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" />
+                <path d="M3 4h8" />
+              </svg>
+            </a>
           </span>
         </p>
       </div>
