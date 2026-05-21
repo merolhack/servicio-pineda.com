@@ -90,7 +90,7 @@ export function Footer() {
             </h5>
             <span className="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
               <span className="material-symbols-outlined text-sm">location_on</span>
-              Mariano Salas No. 78-A, CDMX
+              Norte 94 8408, Col. La Esmeralda, C.P. 07540, Gustavo A. Madero, D.F.
             </span>
             <div className="flex flex-col gap-1">
               <span className="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">

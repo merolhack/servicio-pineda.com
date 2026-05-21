@@ -151,8 +151,9 @@ export default function About() {
         </div>
         <div className="flex flex-col md:flex-row items-center gap-md">
           <div className="text-center md:text-right">
-            <p className="font-label-bold text-lg">Mariano Salas No. 78-A</p>
-            <p className="text-sm text-on-surface-variant">CDMX, México</p>
+            <p className="font-label-bold text-lg">Norte 94 8408</p>
+            <p className="text-sm text-on-surface-variant">Col. La Esmeralda, C.P. 07540</p>
+            <p className="text-sm text-on-surface-variant">Gustavo A. Madero, D.F.</p>
           </div>
           <div className="h-24 w-40 relative border-2 border-primary overflow-hidden">
             <Image 

@@ -23,7 +23,7 @@ export default function Contact() {
               <span className="material-symbols-outlined text-primary text-3xl">location_on</span>
               <div>
                 <span className="font-label-bold text-label-bold block uppercase mb-xs tracking-wider">Ubicación</span>
-                <p className="font-body-md text-body-md text-on-surface-variant">Mariano Salas No. 78-A, Ciudad de México, CP 07800</p>
+                <p className="font-body-md text-body-md text-on-surface-variant">Norte 94 8408, Col. La Esmeralda, C.P. 07540, Gustavo A. Madero, D.F.</p>
               </div>
             </div>
             <div className="flex items-start gap-md p-lg border border-[#E0E0E0] bg-surface-container-low">
