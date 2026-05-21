@@ -1,6 +1,4 @@
-import Image from "next/image";
 import ContactForm from "@/components/ContactForm";
-import mapImg from "@/public/images/pineda-evidencia-trabajo-altura.jpeg";
 
 export const metadata = {
   title: "Contacto | Pineda Hydraulic",
@@ -44,13 +42,17 @@ export default function Contact() {
             </div>
           </div>
           <div className="w-full h-64 border-2 border-[#2D2D2D] overflow-hidden relative">
-            <Image 
-              src={mapImg} 
-              alt="Map view of Mexico City" 
-              fill 
-              className="object-cover grayscale contrast-125"
-              placeholder="blur"
-            />
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.316123387961!2d-99.08888178846424!3d19.48503058172976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fa3312f5d35f%3A0xab4fd45d6ef4fe15!2sNte%2094%208408%2C%20La%20Esmeralda%2C%20Gustavo%20A.%20Madero%2C%2007540%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1sen!2smx!4v1779339979327!5m2!1sen!2smx"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="grayscale contrast-125 hover:grayscale-0 transition-all duration-300 absolute inset-0"
+              title="Ubicación de Pineda Hydraulic"
+            ></iframe>
           </div>
         </section>
 

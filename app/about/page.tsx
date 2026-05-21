@@ -155,15 +155,24 @@ export default function About() {
             <p className="text-sm text-on-surface-variant">Col. La Esmeralda, C.P. 07540</p>
             <p className="text-sm text-on-surface-variant">Gustavo A. Madero, D.F.</p>
           </div>
-          <div className="h-24 w-40 relative border-2 border-primary overflow-hidden">
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Norte%2094%208408%2C%20La%20Esmeralda%2C%20Gustavo%20A.%20Madero%2C%2007540%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="h-24 w-40 relative border-2 border-primary overflow-hidden block active:scale-95 transition-transform hover:opacity-90 group"
+            title="Abrir ubicación en Google Maps"
+          >
             <Image 
               src={img4} 
               alt="Map Location" 
               fill 
-              className="object-cover"
+              className="object-cover group-hover:scale-110 transition-transform duration-300"
               placeholder="blur"
             />
-          </div>
+            <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <span className="material-symbols-outlined text-white text-3xl font-bold">open_in_new</span>
+            </div>
+          </a>
         </div>
       </section>
     </div>
